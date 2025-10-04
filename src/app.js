@@ -1,5 +1,6 @@
 const express = require('express');
-const app = express();
+const app = express(); //instancia da aplicação express, express() é uma função que retorna um objeto (geralmente chamado de app).
+//Esse objeto representa o seu servidor, través dele que você define as rotas, middlewares, e como o servidor vai responder às requisições.
 
 // Middleware para interpretar JSON no corpo da requisição
 app.use(express.json());
