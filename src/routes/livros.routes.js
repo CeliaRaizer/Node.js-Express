@@ -6,7 +6,7 @@ const LivrosController = require("../controllers/livros.controller");
 const livrosController = new LivrosController();
 
 // Middlewares
-const { validarLivro, validarParamId } = require("../middlewares/validar/livros.validar");
+const { validarLivro, validarParamId } = require("../middleware/validar/livros.validar");
 
 router.get("/", (req, res, next) => livrosController.listarLivros(req, res, next));
 router.get("/:id", validarParamId, (req, res, next) => livrosController.buscarLivroPorId(req, res, next));

@@ -1,5 +1,4 @@
 const app = require ("./config/express");
-
 const routes = require("./routes"); //todas as rotas da aplicação (centralizadas)
 const errorHandler = require("./middleware/errorHandler") //configura o middleware de tratamento de erros
 
