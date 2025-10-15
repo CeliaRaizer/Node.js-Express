@@ -15,7 +15,7 @@ class LivrosRepository extends RepositoryBase{
 
     async findById(id){
         const livros = await this.findAll();
-        return livros.find(livros.id == id);
+        return livros.find(l => l.id === id);
     }
 
     async create(livroData){

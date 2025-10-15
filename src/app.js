@@ -1,13 +1,18 @@
-const app = require ("./config/express");
-const routes = require("./routes"); //todas as rotas da aplicação (centralizadas)
-const errorHandler = require("./middleware/errorHandler") //configura o middleware de tratamento de erros
+const app = require("./config/express");
 
-app.use("/api", routes); //configura as rotas com prefixo /api
+// Todas as rotas da aplicação
+const routes = require("./routes");
 
-app.use(errorHandler); //middleware de tratamento de erros
+// Configura o middleware de tratamento de erros
+const errorHandler = require("./middleware/errorHandler");
 
-app.use((req, res) => { //handler para rotas não encontradas (404)
-    res.status(404).json({erro: "Endpoint não encontrado"});
+// Configura as rotas
+app.use("/api", routes);
+app.use(errorHandler);
+
+// Handler para rotas não encontradas (404)
+app.use((req, res) => {
+    res.status(404).json({ erro: "Endpoint não encontrado" });
 });
 
 module.exports = app;

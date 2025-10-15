@@ -1,12 +1,5 @@
 [
   {
-    "id": 1,
-    "titulo": "Clean Code",
-    "autor": "Robert C. Martin",
-    "categoria": "Programação",
-    "ano": 2008
-  },
-  {
     "id": 2,
     "titulo": "O Programador Pragmático",
     "autor": "Andrew Hunt",
