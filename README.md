@@ -1,20 +1,29 @@
-# Biblioteca Online - API REST
+# 📚 API Livraria
 
-Esta é uma API simples de uma biblioteca online desenvolvida em **Node.js** usando **Express**. Ela permite gerenciar livros: listar, adicionar, atualizar, deletar e consultar por categoria ou ID.
-
----
-
-## Tecnologias Utilizadas
-
-- Node.js
-- Express.js
-- JSON (para requisições e respostas)
+Este projeto foi desenvolvido com **Node.js** e **Express.js** e faz parte das atividades do curso de Desenvolvimento Web.  
+A API permite **gerenciar livros**, possibilitando as operações de **listar, buscar, cadastrar, atualizar e excluir**.
 
 ---
 
-## Instalação
+## 🚀 Tecnologias Utilizadas
+- **Node.js**
+- **Express.js**
+- **Morgan** (para logs de requisições)
+- **Nodemon** (para execução automática em desenvolvimento)
+- **Postman** (para testar e documentar as rotas)
+- **dotenv** (para variáveis de ambiente)
 
-1. Clone este repositório:
+---
 
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+## ⚙️ Funcionalidades
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| `GET` | `/livros` | Lista todos os livros |
+| `GET` | `/livros/:id` | Busca um livro pelo ID |
+| `POST` | `/livros` | Cadastra um novo livro |
+| `PUT` | `/livros/:id` | Atualiza os dados de um livro |
+| `DELETE` | `/livros/:id` | Remove um livro |
+
+---
+
