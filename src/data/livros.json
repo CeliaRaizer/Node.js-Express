@@ -1,16 +1,20 @@
 [
   {
-    "id": 2,
-    "titulo": "O Programador Pragmático (Edição Revisada)",
+    "id": 1,
+    "titulo": "O Programador Pragmático",
     "autor": "Andrew Hunt e David Thomas",
     "categoria": "Programação",
-    "ano": 2019
+    "ano": 2019,
+    "editora": "Alta Books",
+    "numeroPaginas": 352
   },
   {
-    "id": 3,
-    "titulo": "Entendendo Algoritmos",
-    "autor": "Aditya Y. Bhargava",
+    "id": 1,
+    "titulo": "O Programador Pragmático",
+    "autor": "Andrew Hunt e David Thomas",
     "categoria": "Programação",
-    "ano": 2017
+    "ano": 2019,
+    "editora": "Alta Books",
+    "numeroPaginas": 352
   }
 ]

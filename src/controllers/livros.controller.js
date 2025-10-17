@@ -20,18 +20,27 @@ async buscarLivroPorId(req, res, next) {
 }
 
 async criarLivro(req, res, next) {
-    const { titulo, autor, categoria, ano } = req.body;
+  try {
+    const { titulo, autor, categoria, ano, editora, numeroPaginas } = req.body;
+
     const novoLivro = await this.repository.create({
-    titulo,
-    autor,
-    categoria,
-    ano: parseInt(ano)
+      titulo,
+      autor,
+      categoria,
+      ano: parseInt(ano),
+      editora,
+      numeroPaginas: parseInt(numeroPaginas)
     });
+
     res.status(201).json({
-        mensagem: "Livro criado com sucesso",
-        data: novoLivro
-});
+      mensagem: "Livro criado com sucesso",
+      data: novoLivro
+    });
+  } catch (error) {
+    next(error);
+  }
 }
+
 
 async atualizarLivro(req, res, next) {
     const id = parseInt(req.params.id);
