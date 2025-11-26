@@ -1,31 +1,41 @@
-import { useEffect, useState } from "react";
-import { livrosService } from "./services/livrosService";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import PrivateRoute from './components/PrivateRoute'
+import Header from './components/Header'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Home from './pages/Home'
+import Livros from './pages/Livros'
+import './App.css'
 
-export default function App() {
-  const [livros, setLivros] = useState([]);
-
-  const carregarLivros = async () => {
-    const resposta = await livrosService.listar();
-    setLivros(resposta);
-  };
-
-  useEffect(() => {
-    carregarLivros();
-  }, []);
-
+function App() {
   return (
-    <div>
-      <h1>Lista de Livros</h1>
-      <ul>
-        {livros.map((livro) => (
-          <li key={livro.id}>
-            <Link to={`/livro/${livro.id}`}>
-              {livro.titulo} - {livro.autor}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <AuthProvider>
+      <Router>
+        <div className="app">
+          <Header />
+
+          <main className="main-content">
+
+            <Routes>
+              {/* Rotas públicas */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+
+              {/* Rotas privadas */}
+              <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+              <Route path="/livros" element={<PrivateRoute><Livros /></PrivateRoute>} />
+
+              {/* Rotas inexistentes → manda para home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+
+          </main>
+        </div>
+      </Router>
+    </AuthProvider>
+  )
 }
+
+export default App
