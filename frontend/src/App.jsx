@@ -1,3 +1,4 @@
+// frontend/src/App.jsx
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
@@ -15,22 +16,14 @@ function App() {
       <Router>
         <div className="app">
           <Header />
-
           <main className="main-content">
-
             <Routes>
-              {/* Rotas públicas */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-
-              {/* Rotas privadas */}
               <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
               <Route path="/livros" element={<PrivateRoute><Livros /></PrivateRoute>} />
-
-              {/* Rotas inexistentes → manda para home */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-
           </main>
         </div>
       </Router>
