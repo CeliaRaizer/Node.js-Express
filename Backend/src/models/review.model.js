@@ -13,9 +13,9 @@ const ReviewModel = {
 
     getByLivro: (livro_id, callback) => {
         const sql = `
-            SELECT r.*, u.nome AS usuarioNome
+            SELECT r.*, u.username AS usuarioNome
             FROM reviews r
-            JOIN usuarios u ON r.usuario_id = u.id
+            JOIN users u ON r.usuario_id = u.id
             WHERE livro_id = ?
             ORDER BY dataReview DESC
         `;

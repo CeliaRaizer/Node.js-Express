@@ -1,3 +1,4 @@
+//src/controllers/reviews.controller.js
 const ReviewsRepository = require("../repositories/reviews.repository");
 
 class ReviewsController {
@@ -50,6 +51,29 @@ class ReviewsController {
             next(err);
         }
     }
+
+    async delete(req, res, next) {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ erro: "ID da review é obrigatório." });
+        }
+
+        const result = this.repo.delete(id);
+
+        if (result.changes === 0) {
+            return res.status(404).json({ erro: "Review não encontrada!" });
+        }
+
+        return res.json({ mensagem: "Review excluída com sucesso!" });
+    } catch (error) {
+        next(error);
+    }
 }
+
+}
+
+
 
 module.exports = ReviewsController;

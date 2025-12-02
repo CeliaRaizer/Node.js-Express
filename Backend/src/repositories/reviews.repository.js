@@ -9,7 +9,7 @@ class ReviewsRepository {
         );
 
         return db.get(
-            `SELECT r.*, u.username 
+            `SELECT r.*, u.username AS usuarioNome
              FROM reviews r
              JOIN users u ON u.id = r.usuario_id
              WHERE r.id_review = ?`,
@@ -19,7 +19,7 @@ class ReviewsRepository {
 
     getAll() {
         return db.all(`
-            SELECT r.*, u.username, l.titulo
+            SELECT r.*, u.username AS usuarioNome, l.titulo AS livroTitulo
             FROM reviews r
             JOIN users u ON u.id = r.usuario_id
             JOIN livros l ON l.id = r.livro_id
@@ -30,13 +30,20 @@ class ReviewsRepository {
     getByLivro(livro_id) {
         return db.all(
             `
-            SELECT r.*, u.username
+            SELECT r.*, u.username AS usuarioNome
             FROM reviews r
             JOIN users u ON u.id = r.usuario_id
             WHERE r.livro_id = ?
             ORDER BY r.dataReview DESC
             `,
             [livro_id]
+        );
+    }
+
+    delete(id_review) {
+        return db.run(
+            `DELETE FROM reviews WHERE id_review = ?`,
+            [id_review]
         );
     }
 }
