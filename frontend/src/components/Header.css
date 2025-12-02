@@ -51,11 +51,3 @@
   color: #666;
   font-size: 14px;
 }
-
-.theme-toggle {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 22px;
-  margin-right: 16px;
-}

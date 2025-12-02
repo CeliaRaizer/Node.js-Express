@@ -10,12 +10,22 @@ class UsersRepository {
         const row = await db.get('SELECT id, username, password_hash, created_at FROM users WHERE username = ?', [username]);
         return row || null; // inclui password_hash
     }
-    async create({ username, passwordHash }) {
-        const result = await db.run('INSERT INTO users (username, password_hash) VALUES (?, ?)', [username, passwordHash]);
-        console.log(result);
-        
-        const row = await db.get('SELECT id, username, created_at FROM users WHERE id = ?', [result.lastInsertRowid]);
-        return User.fromDB(row);
+    async findByEmail(email) {
+    return db.get("SELECT * FROM users WHERE email = ?", [email]);
     }
+
+    async create({ username, email, passwordHash }) {
+    const result = await db.run(
+        'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
+        [username, email, passwordHash]
+    );
+
+    const row = await db.get(
+        'SELECT id, username, email, created_at FROM users WHERE id = ?',
+        [result.lastInsertRowid]
+    );
+    return User.fromDB(row);
+    }
+
 }
 module.exports = UsersRepository;

@@ -6,7 +6,7 @@ import './Auth.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: ''
   });
   const [error, setError] = useState('');
@@ -14,6 +14,7 @@ const Login = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
 
+  // Redireciona se já estiver autenticado
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -47,14 +48,13 @@ const Login = () => {
         {error && <div className="alert alert-error">{error}</div>}
         
         <form onSubmit={handleSubmit}>
-          
           <div className="input-group">
-            <label htmlFor="username">Nome de Usuário</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               required
               disabled={loading}

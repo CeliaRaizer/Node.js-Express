@@ -25,7 +25,7 @@ class AuthController {
     const passwordHash = await bcrypt.hash(password, 10);
 
     // cria o usuário no banco
-    const user = await this.usersRepo.create({ username, passwordHash });
+    const user = await this.usersRepo.create({ username, email, passwordHash });
 
     // salva a sessão
     req.session.userId = user.id;
@@ -43,10 +43,10 @@ class AuthController {
 
     async login(req, res, next) {
         try {
-            const { username, password } = req.body;
+            const { email, password } = req.body;
 
             // aguarda a Promise ser resolvida
-            const user = await this.usersRepo.findByUsername(username);
+            const user = await this.usersRepo.findByEmail(email);
             if (!user) {
             return res.status(401).json({ erro: 'Usuário ou senha inválidos.' });
             }

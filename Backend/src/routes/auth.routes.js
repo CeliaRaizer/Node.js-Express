@@ -1,4 +1,4 @@
-
+//backend/routes/auth.routes
 const express = require('express'); //cria um mini roteador que agrupa rotas relacionadas.
 const router = express.Router();
 const AuthController = require('../controllers/auth.controller'); //classe com os métodos (register, login, etc.).

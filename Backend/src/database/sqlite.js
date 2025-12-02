@@ -36,6 +36,26 @@ function init() {
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
+    // Verificar se coluna email existe
+    const hasEmail = all("PRAGMA table_info(users)").some(col => col.name === "email");
+
+    if (!hasEmail) {
+        run("ALTER TABLE users ADD COLUMN email TEXT");
+        console.log("Coluna email adicionada à tabela users");
+    }
+
+    run(`CREATE TABLE IF NOT EXISTS reviews (
+    id_review INTEGER PRIMARY KEY AUTOINCREMENT,
+    livro_id INTEGER NOT NULL,
+    usuario_id INTEGER NOT NULL,
+    nota INTEGER CHECK(nota >= 1 AND nota <= 5),
+    comentario TEXT,
+    dataReview DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (livro_id) REFERENCES livros(id),
+    FOREIGN KEY (usuario_id) REFERENCES users(id)
+    )`);
+
+
     console.log('Banco de dados SQLite inicializado');
 }
 
