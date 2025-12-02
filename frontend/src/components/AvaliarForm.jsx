@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LivroForm.css'; // você pode duplicar e renomear depois
+import './LivroForm.css'; 
 
 const AvaliarForm = ({ livros, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -35,7 +35,7 @@ const AvaliarForm = ({ livros, onSubmit, onCancel }) => {
 
           {/* Selecionar Livro */}
           <div className="input-group">
-            <label>Livro *</label>
+            <label>Livro </label>
             <select
               name="livro_id"
               value={formData.livro_id}
@@ -73,7 +73,7 @@ const AvaliarForm = ({ livros, onSubmit, onCancel }) => {
               name="comentario"
               value={formData.comentario}
               onChange={handleChange}
-              rows="4"
+              rows="3"
               placeholder="Escreva sua opinião sobre o livro..."
             />
           </div>
