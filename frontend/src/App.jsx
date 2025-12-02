@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Livros from './pages/Livros'
+import Avaliar from './pages/Avaliar'   // ✅ ADICIONADO
 import './App.css'
 
 function App() {
@@ -20,8 +21,13 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+
               <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
               <Route path="/livros" element={<PrivateRoute><Livros /></PrivateRoute>} />
+
+              {/* ✅ NOVA ROTA */}
+              <Route path="/avaliar" element={<PrivateRoute><Avaliar /></PrivateRoute>} />
+
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
