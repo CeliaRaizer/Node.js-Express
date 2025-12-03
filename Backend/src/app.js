@@ -1,18 +1,23 @@
+const express = require("express");
 const app = require("./config/express");
+const path = require('path');
 const db = require("./database/sqlite");
-db.init(); // garante que a tabela exista antes das rotas
 
+// Inicializa o banco
+db.init(); 
 
-// Todas as rotas da aplicação
+// Serve arquivos de upload
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Rotas
 const routes = require("./routes");
-// Configura o middleware de tratamento de erros
-const errorHandler = require("./middleware/errorHandler");
-
-// Configura as rotas
 app.use("/api", routes);
+
+// Tratamento de erros
+const errorHandler = require("./middleware/errorHandler");
 app.use(errorHandler);
 
-// Handler para rotas não encontradas (404)
+// 404
 app.use((req, res) => {
     res.status(404).json({ erro: "Endpoint não encontrado" });
 });

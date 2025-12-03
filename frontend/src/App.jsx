@@ -8,7 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Livros from './pages/Livros'
-import Avaliar from './pages/Avaliar'   // ✅ ADICIONADO
+import Avaliar from './pages/Avaliar'   
 import './App.css'
 
 function App() {

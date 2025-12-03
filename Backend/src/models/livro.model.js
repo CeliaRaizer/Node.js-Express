@@ -1,5 +1,14 @@
 class Livro {
-  constructor({ id = null, titulo, autor, categoria, ano, editora, numeroPaginas }) {
+  constructor({
+    id = null,
+    titulo,
+    autor,
+    categoria,
+    ano,
+    editora,
+    numeroPaginas,
+    capa = null   // 👈 ADICIONADO
+  }) {
     this.id = id !== undefined ? id : null;
     this.titulo = String(titulo).trim();
     this.autor = String(autor).trim();
@@ -7,6 +16,7 @@ class Livro {
     this.ano = Number.isInteger(ano) ? ano : parseInt(ano, 10);
     this.editora = editora ? String(editora).trim() : "";
     this.numeroPaginas = numeroPaginas ? parseInt(numeroPaginas, 10) : null;
+    this.capa = capa; // 👈 ADICIONADO
 
     this._validar();
   }
@@ -40,6 +50,7 @@ class Livro {
       ano: json.ano,
       editora: json.editora,
       numeroPaginas: json.numeroPaginas,
+      capa: json.capa ?? null // 👈 ADICIONADO
     });
   }
 
@@ -52,6 +63,7 @@ class Livro {
       ano: this.ano,
       editora: this.editora,
       numeroPaginas: this.numeroPaginas,
+      capa: this.capa // 👈 ADICIONADO
     };
   }
 }

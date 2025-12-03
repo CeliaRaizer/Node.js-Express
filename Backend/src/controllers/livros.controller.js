@@ -24,13 +24,16 @@ async criarLivro(req, res, next) {
   try {
     const { titulo, autor, categoria, ano, editora, numeroPaginas } = req.body;
 
+    const capa = req.file ? `uploads/${req.file.filename}` : null;
+
     const novoLivro = await this.repository.create({
       titulo,
       autor,
       categoria,
       ano: parseInt(ano),
       editora,
-      numeroPaginas: parseInt(numeroPaginas)
+      numeroPaginas: parseInt(numeroPaginas),
+      capa
     });
 
     res.status(201).json({
@@ -45,13 +48,20 @@ async criarLivro(req, res, next) {
 
 async atualizarLivro(req, res, next) {
     const id = parseInt(req.params.id);
-    const dados = req.body;
+    const dados = { ...req.body };
+
+    // Se vier nova capa no update, salva o caminho correto
+    if (req.file) {
+        dados.capa = `uploads/${req.file.filename}`;
+    }
+
     const livroAtualizado = await this.repository.update(id, dados);
     res.status(200).json({
         mensagem: "Livro atualizado com sucesso",
         data: livroAtualizado
     });
 }
+
 
 async removerLivro(req, res, next) {
     const id = parseInt(req.params.id);

@@ -1,4 +1,3 @@
-// frontend/src/components/LivroForm.jsx
 import React, { useState, useEffect } from 'react';
 import './LivroForm.css';
 
@@ -9,7 +8,8 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
     ano: '',
     editora: '',
     categoria: '',
-    numeroPaginas: ''
+    numeroPaginas: '',
+    capa: null
   });
 
   useEffect(() => {
@@ -20,27 +20,37 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
         ano: livro.ano || '',
         editora: livro.editora || '',
         categoria: livro.categoria || '',
-        numeroPaginas: livro.numeroPaginas || ''
+        numeroPaginas: livro.numeroPaginas || '',
+        capa: null
       });
     }
   }, [livro]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+    if (name === 'capa') {
+      setFormData(prev => ({ ...prev, capa: files[0] }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Garante que numeroPaginas seja número
-    const payload = {
-      ...formData,
-      ano: Number(formData.ano),
-      numeroPaginas: Number(formData.numeroPaginas)
-    };
+    const data = new FormData();
+    data.append('titulo', formData.titulo);
+    data.append('autor', formData.autor);
+    data.append('ano', formData.ano);
+    data.append('editora', formData.editora);
+    data.append('categoria', formData.categoria);
+    data.append('numeroPaginas', formData.numeroPaginas);
 
-    onSubmit(payload);
+    if (formData.capa) {
+      data.append('capa', formData.capa);
+    }
+
+    onSubmit(data);
   };
 
   return (
@@ -48,7 +58,7 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
       <div className="livro-form-container">
         <h2>{livro ? 'Editar Livro' : 'Novo Livro'}</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
 
           {/* Título */}
           <div className="input-group">
@@ -130,20 +140,24 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
             />
           </div>
 
+          {/* Capa */}
+          <div className="input-group">
+            <label htmlFor="capa">Capa do Livro</label>
+            <input
+              type="file"
+              id="capa"
+              name="capa"
+              accept="image/*"
+              onChange={handleChange}
+            />
+          </div>
+
           {/* Botões */}
           <div className="form-actions">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="btn btn-secondary"
-            >
+            <button type="button" onClick={onCancel} className="btn btn-secondary">
               Cancelar
             </button>
-
-            <button
-              type="submit"
-              className="btn btn-success"
-            >
+            <button type="submit" className="btn btn-success">
               {livro ? 'Atualizar' : 'Criar'}
             </button>
           </div>
