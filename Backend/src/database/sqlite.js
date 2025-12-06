@@ -20,7 +20,7 @@ function all(sql, params = []) { return getDb().prepare(sql).all(...params); }
 
 function init() {
 
-    // ------------------- LIVROS --------------------
+    //livros
     run(`CREATE TABLE IF NOT EXISTS livros (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         titulo TEXT NOT NULL,
@@ -37,7 +37,7 @@ function init() {
         console.log("Coluna 'capa' adicionada à tabela livros");
     }
 
-    // ------------------- USERS ---------------------
+    //usuarios
     run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
@@ -46,22 +46,17 @@ function init() {
     )`);
 
     const hasEmail = all("PRAGMA table_info(users)").some(col => col.name === "email");
-
     if (!hasEmail) {
         run("ALTER TABLE users ADD COLUMN email TEXT");
-        console.log("Coluna email adicionada à tabela users");
+        console.log("Coluna 'email' adicionada à tabela users");
     }
 
-    // ------------------- REVIEWS COM CASCADE ---------------------
-
-    // Verifica se a tabela reviews existe
+    //reviews
     const reviewsExists = all(`
         SELECT name FROM sqlite_master WHERE type='table' AND name='reviews';
     `).length > 0;
 
-    // Se não existir, já cria com CASCADE direto
     if (!reviewsExists) {
-        console.log("Criando tabela reviews com ON DELETE CASCADE...");
         run(`
             CREATE TABLE reviews (
                 id_review INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,17 +70,13 @@ function init() {
             )
         `);
     } else {
-        // Se existe, verifica se já tem CASCADE
         const fkList = all("PRAGMA foreign_key_list(reviews)");
         const hasCascade = fkList.some(fk => fk.on_delete === "CASCADE");
 
         if (!hasCascade) {
-            console.log("Recriando tabela 'reviews' com ON DELETE CASCADE...");
 
-            // renomear a tabela
             run(`ALTER TABLE reviews RENAME TO reviews_old`);
 
-            // Criar nova tabela
             run(`
                 CREATE TABLE reviews (
                     id_review INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -99,20 +90,60 @@ function init() {
                 )
             `);
 
-            // Copiar dados
             run(`
                 INSERT INTO reviews (id_review, livro_id, usuario_id, nota, comentario, dataReview)
                 SELECT id_review, livro_id, usuario_id, nota, comentario, dataReview
                 FROM reviews_old
             `);
 
-            // Dropar tabela antiga
             run(`DROP TABLE reviews_old`);
+        } 
+    }
 
-            console.log("Tabela 'reviews' recriada com sucesso.");
-        } else {
-            console.log("Tabela 'reviews' já possui ON DELETE CASCADE.");
-        }
+    //favoritos
+    const favoritesExists = all(`
+        SELECT name FROM sqlite_master WHERE type='table' AND name='favorites';
+    `).length > 0;
+
+    if (!favoritesExists) {
+        console.log("Criando tabela favorites com ON DELETE CASCADE...");
+        run(`
+            CREATE TABLE favorites (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                book_id INTEGER NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (book_id) REFERENCES livros(id) ON DELETE CASCADE
+            )
+        `);
+    } else {
+        const fkFav = all("PRAGMA foreign_key_list(favorites)");
+        const hasCascade = fkFav.some(fk => fk.on_delete === "CASCADE");
+
+        if (!hasCascade) {
+            console.log("Recriando tabela 'favorites' com ON DELETE CASCADE...");
+
+            run(`ALTER TABLE favorites RENAME TO favorites_old`);
+
+            run(`
+                CREATE TABLE favorites (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    book_id INTEGER NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                    FOREIGN KEY (book_id) REFERENCES livros(id) ON DELETE CASCADE
+                )
+            `);
+
+            run(`
+                INSERT INTO favorites (id, user_id, book_id)
+                SELECT id, user_id, book_id FROM favorites_old
+            `);
+
+            run(`DROP TABLE favorites_old`);
+
+            console.log("Tabela 'favorites' recriada com sucesso.");
+        } 
     }
 
     console.log('Banco de dados SQLite inicializado');

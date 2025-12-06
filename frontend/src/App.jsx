@@ -9,6 +9,7 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import Livros from './pages/Livros'
 import Avaliar from './pages/Avaliar'   
+import MeusFavoritos from "./pages/Favoritos";
 import './App.css'
 
 function App() {
@@ -24,9 +25,8 @@ function App() {
 
               <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
               <Route path="/livros" element={<PrivateRoute><Livros /></PrivateRoute>} />
-
-              {/* ✅ NOVA ROTA */}
               <Route path="/avaliar" element={<PrivateRoute><Avaliar /></PrivateRoute>} />
+              <Route path="/favoritos" element={<MeusFavoritos />} />
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

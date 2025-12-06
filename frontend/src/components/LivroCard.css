@@ -1,5 +1,6 @@
 /* frontend/src/components/LivroCard.css */
 .livro-card {
+  position: relative;  
   background: white;
   border-radius: 8px;
   padding: 20px;
@@ -44,3 +45,17 @@
   margin-bottom: 10px;
 }
 
+.favorite-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 20px;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.15);
+  transition: 0.2s;
+}
