@@ -51,3 +51,32 @@
   color: #666;
   font-size: 14px;
 }
+
+.theme-btn {
+  background: #ff00c3;
+  border: none;
+  font-size: 18px;
+  padding: 6px 10px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: 0.3s ease;
+}
+
+.theme-btn:hover {
+  transform: scale(1.15);
+}
+
+/* Espaço e alinhamento da área do usuário */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* No modo escuro */
+html[data-theme='dark'] .theme-btn {
+  background: #ff66d6;
+  color: white;
+}

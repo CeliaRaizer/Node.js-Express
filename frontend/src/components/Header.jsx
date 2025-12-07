@@ -1,11 +1,13 @@
 // frontend/src/components/Header.jsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 import './Header.css';
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -27,12 +29,22 @@ const Header = () => {
               <Link to="/livros" className="nav-link">Livros</Link>
               <Link to="/avaliar" className="nav-link">Avaliações</Link>
               <Link to="/favoritos" className="nav-link">Meus Favoritos</Link>
+
               <div className="user-info">
-                <span>Olá, {user.username || user.email}!</span>
-                <button onClick={handleLogout} className="btn btn-secondary">
+               <span>Olá, {user.username || user.email}!</span>
+
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-secondary"
+                >
                   Sair
                 </button>
+
+                <button onClick={toggleTheme} className="theme-btn">
+                  {theme === "light" ? "🌙" : "☀️"}
+                </button>
               </div>
+
             </>
           ) : (
             <>

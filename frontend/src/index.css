@@ -98,3 +98,74 @@ body {
   text-align: center;
   padding: 40px;
 }
+
+/* ============================================= */
+/*                 🌙 TEMA ESCURO                */
+/* ============================================= */
+
+html[data-theme='dark'] {
+  background-color: #121212 !important;
+  color: #eaeaea !important;
+}
+
+/* Faz o body inteiro escurecer */
+html[data-theme='dark'] body {
+  background-color: #121212 !important;
+  color: #eaeaea !important;
+}
+
+/* Links */
+html[data-theme='dark'] a,
+html[data-theme='dark'] .nav-link {
+  color: #f1f1f1 !important;
+}
+
+html[data-theme='dark'] .nav-link:hover {
+  color: #ff66d6 !important;
+}
+
+/* Header */
+html[data-theme='dark'] .header {
+  background-color: #1a1a1a !important;
+  box-shadow: 0 2px 4px rgba(255,255,255,0.05);
+}
+
+html[data-theme='dark'] .logo h1 {
+  color: #fff !important;
+}
+
+/* Inputs */
+html[data-theme='dark'] input {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+/* Cards */
+html[data-theme='dark'] .livro-card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+/* Botões secundários */
+html[data-theme='dark'] .btn-secondary {
+  background-color: #333;
+  color: white;
+}
+
+html[data-theme='dark'] .btn-secondary:hover {
+  background-color: #444;
+}
+
+/* Botões rosa continuam rosa */
+html[data-theme='dark'] .btn-primary,
+html[data-theme='dark'] .btn-success {
+  background-color: #ff00c3;
+  color: white;
+}
+
+html[data-theme='dark'] .btn-primary:hover,
+html[data-theme='dark'] .btn-success:hover {
+  background-color: #ff00c3;
+}
