@@ -122,7 +122,7 @@ O relacionamento `ON DELETE CASCADE` garante a limpeza automática de dados órf
 
 ---
 
-#Estrutura Geral do Projeto
+## Estrutura Geral do Projeto
 
 A aplicação está organizada em dois diretórios principais:
 
@@ -133,7 +133,7 @@ A aplicação está organizada em dois diretórios principais:
 
 ## 💻 Estrutura de Pastas (`backend`)
 
-* backend/
+```backend/
 ├── server.js            # Inicialização do servidor
 ├── app.js               # Configurações principais
 ├── package.json
@@ -147,14 +147,14 @@ A aplicação está organizada em dois diretórios principais:
     ├── repositories     # Consultas diretas ao banco
     ├── routes           # Arquitetura de rotas
     └── uploads          # Diretório para capas enviadas (Multer)
-
+```
 
 
 ### Estrutura do Frontend (`frontend`)
 O diretório `frontend/` segue a estrutura padrão de uma aplicação React:
 
-frontend/
-```├── public/
+```frontend/
+├── public/
 ├── index.html
 ├── package.json
 ├── vite.config.js
@@ -185,7 +185,6 @@ npm install
 npm run dev
 ```
 O servidor estará rodando em http://localhost:3333
----
 
 ### 2. Rodar o Frontend (Cliente)
 
