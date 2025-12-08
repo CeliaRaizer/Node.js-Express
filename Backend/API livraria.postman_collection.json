@@ -13,12 +13,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/livros",
+					"raw": "http://localhost:3333/api/livros",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros"
@@ -33,16 +33,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/livros/3",
+					"raw": "http://localhost:3333/api/livros/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros",
-						"3"
+						"4"
 					]
 				}
 			},
@@ -54,12 +54,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/livros/3",
+					"raw": "http://localhost:3333/api/livros/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros",
@@ -84,12 +84,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/livros",
+					"raw": "http://localhost:3333/api/livros",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros"
@@ -113,12 +113,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/livros/1",
+					"raw": "http://localhost:3333/api/livros/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros",
@@ -135,7 +135,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"Ana\",\r\n  \"password\": \"secret2121\"\r\n}\r\n",
+					"raw": "{\r\n  \"username\": \"celia\",\r\n  \"email\": \"celia@gmail.com\",\r\n  \"password\": \"senha1234\"\r\n}\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -143,12 +143,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/auth/register",
+					"raw": "http://localhost:3333/api/auth/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"auth",
@@ -164,12 +164,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/auth/me",
+					"raw": "http://localhost:3333/api/auth/me",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"auth",
@@ -180,17 +180,17 @@
 			"response": []
 		},
 		{
-			"name": "Logout",
+			"name": "Logout Usuário",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/auth/logout",
+					"raw": "http://localhost:3333/api/auth/logout",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"auth",
@@ -201,13 +201,13 @@
 			"response": []
 		},
 		{
-			"name": "Login",
+			"name": "Login Usuário",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"alice\",\r\n  \"password\": \"secret123\"\r\n}\r\n",
+					"raw": "{\r\n    \"username\": \"celia\",\r\n    \"email\": \"celia@gmail.com\",\r\n    \"password\": \"senha1234\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -215,16 +215,192 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/auth/login",
+					"raw": "http://localhost:3333/api/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"auth",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Avaliação/Reviews",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"livro_id\": 1,\r\n  \"nota\": 5,\r\n  \"comentario\": \"Excelente livro!\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/api/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Avaliação ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/reviews/livro/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"reviews",
+						"livro",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Avaliação",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/reviews/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"reviews",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Avaliação/Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar Favorito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/favorites/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"favorites",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testar favorito",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/favorites/check/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"favorites",
+						"check",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Favoritos do usuário",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/favorites",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"favorites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Favorito",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/favorites/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"favorites",
+						"2"
 					]
 				}
 			},

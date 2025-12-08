@@ -56,23 +56,21 @@ Sistema completo baseado em cookies de sessão para gerenciamento de usuários e
 | :--- | :--- | :--- |
 | `POST` | `/api/auth/register` | Cria um novo usuário. |
 | `POST` | `/api/auth/login` | Realiza o login, estabelecendo o cookie de sessão. |
-| `GET` | `/api/auth/me` | Retorna os dados do usuário autenticado (requer cookie válido). |
+| `GET` | `/api/auth/me` | Retorna os dados do usuário autenticado . |
 | `POST` | `/api/auth/logout` | Efetua o logout, invalidando o cookie de sessão. |
 
 ---
 
 ### ⭐ 3. Sistema de Avaliações (`/api/reviews`)
 
-Gerenciamento das avaliações dos livros, com tabelas interligadas.
-
-* **Relacionamentos:** `reviews` $\rightarrow$ `livros` (`book_id`) e `reviews` $\rightarrow$ `users` (`user_id`).
+Gerenciamento das avaliações dos livros
 
 #### 📌 Rotas
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
 | `GET` | `/api/reviews` | Lista todas as avaliações. |
-| `GET` | `/api/reviews/minhas` | Lista avaliações feitas pelo usuário logado. |
+| `GET` | `/api/reviews/livro/:book_id` | Lista avaliações por id. |
 | `POST` | `/api/reviews` | Cria uma nova avaliação. |
 | `DELETE` | `/api/reviews/:id_review` | Remove uma avaliação específica. |
 
@@ -190,7 +188,8 @@ O servidor estará rodando em http://localhost:3333
 
 Entre no diretório `frontend` e execute os seguintes comandos no seu terminal:
 
-```cd frontend
+```bash
+cd frontend
 npm install
 npm run dev
 ``` 
