@@ -1,101 +1,117 @@
-# 📚 API Livraria - Gerenciamento Completo
+# 📚 API Livraria 
 
-Este projeto implementa uma **API RESTful** para gerenciar livros, usuários, avaliações e favoritos. Foi desenvolvida como parte das atividades do curso de Desenvolvimento Web.
+Este projeto implementa uma **API RESTful** completa para gerenciar livros, usuários, avaliações e favoritos. Além disso, a arquitetura do frontend foi desenhada para suportar **upload de capas** e alternância de **tema claro/escuro**.
 
-A API permite o **CRUD** completo de livros, autenticação de usuários, um sistema de avaliações, **gerenciamento de favoritos** e o **upload de imagens de capa**.
+Foi desenvolvido como parte dos desafios práticos do curso de Desenvolvimento Web, incluindo operações completas de CRUD, autenticação com sessões, sistema de reviews, favoritos e gerenciamento de imagens.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
-O projeto foi construído utilizando um stack Node.js e ferramentas essenciais:
+O projeto foi construído utilizando um *stack* Node.js, complementado por ferramentas essenciais:
 
-* **Node.js** & **Express.js** (Framework web)
-* **SQLite** (Banco de dados leve, com o driver **Better-sqlite3**)
-* **Multer** (Middleware para upload de arquivos)
-* **JWT** ou **Cookies de sessão** (Para autenticação e controle de acesso)
-* **Morgan** (Logger de requisições HTTP)
-* **Nodemon** (Ferramenta para auto-reload em desenvolvimento)
-* **dotenv** (Gerenciamento de variáveis de ambiente)
+* **Node.js** + **Express.js** – Servidor da aplicação.
+* **SQLite** + **better-sqlite3** – Banco de dados leve e rápido.
+* **Multer** – Middleware para manipulação e upload de imagens.
+* **Cookies de sessão** – Mecanismo de autenticação persistente.
+* **Morgan** – Módulo de log de requisições HTTP.
+* **dotenv** – Gerenciamento de variáveis de ambiente.
+* **Nodemon** – Ferramenta para monitoramento e auto-reload no ambiente de desenvolvimento.
 
 ---
 
 ## ⚙️ Funcionalidades da API
 
-A API é estruturada em torno de quatro recursos principais: Livros, Autenticação, Avaliações e Favoritos.
+A API é estruturada em torno de cinco recursos principais: Livros, Autenticação, Avaliações, Favoritos e tema claro/escuro (gerenciado principalmente pelo frontend).
 
-### 📘 Livros
+### 📘 1. CRUD de Livros + Upload de Capa
 
-Permite o **CRUD** completo e o gerenciamento da imagem de capa.
+O usuário pode cadastrar livros, incluindo o upload de uma imagem de capa usando o Multer.
+
+#### 📌 Rotas
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
 | `GET` | `/livros` | Lista todos os livros. |
-| `GET` | `/livros/:id` | Retorna um livro específico. |
+| `GET` | `/livros/:id` | Retorna um livro pelo ID. |
 | `POST` | `/livros` | Cadastra um novo livro (com upload da capa). |
 | `PUT` | `/livros/:id` | Atualiza um livro existente. |
-| `DELETE` | `/livros/:id` | Remove um livro. **Aciona o CASCADE para apagar avaliações e favoritos relacionados.** |
+| `DELETE` | `/livros/:id` | Remove um livro. |
 
-#### 🖼️ Upload de Capa
+#### 🖼️ Sobre o Upload
 
 * As imagens são salvas no diretório `/uploads` do servidor.
-* Apenas o **caminho** da imagem é armazenado no banco.
-* O frontend acessa a imagem via URL pública (Exemplo: `http://localhost:3333/uploads/arquivo.jpg`).
+* Apenas o **caminho** da imagem é armazenado no banco, mantendo-o leve.
+* O frontend acessa a imagem via URL pública.
 
 ---
 
-### 👤 Autenticação
+### 👤 2. Autenticação
 
-Gerenciamento de usuários e controle de acesso.
+Sistema completo baseado em cookies de sessão para gerenciamento de usuários e controle de acesso.
+
+#### 📌 Rotas
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
 | `POST` | `/api/auth/register` | Cria um novo usuário. |
-| `POST` | `/api/auth/login` | Realiza o login e retorna o token de autenticação. |
-| `GET` | `/api/auth/me` | Retorna os dados do usuário autenticado (requer token). |
-| `POST` | `/api/auth/logout` | Finaliza a sessão do usuário. |
+| `POST` | `/api/auth/login` | Realiza o login, estabelecendo o cookie de sessão. |
+| `GET` | `/api/auth/me` | Retorna os dados do usuário autenticado (requer cookie válido). |
+| `POST` | `/api/auth/logout` | Efetua o logout, invalidando o cookie de sessão. |
 
 ---
 
-### ⭐ Sistema de Avaliações (`/api/reviews`)
+### ⭐ 3. Sistema de Avaliações (`/api/reviews`)
+
+Gerenciamento das avaliações dos livros, com tabelas interligadas.
+
+* **Relacionamentos:** `reviews` $\rightarrow$ `livros` (`book_id`) e `reviews` $\rightarrow$ `users` (`user_id`).
+
+#### 📌 Rotas
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
-| `GET` | `/api/reviews` | Lista todas as avaliações registradas. |
-| `GET` | `/api/reviews/minhas` | Lista avaliações feitas pelo usuário autenticado. |
-| `POST` | `/api/reviews` | Cria uma nova avaliação para um livro. |
+| `GET` | `/api/reviews` | Lista todas as avaliações. |
+| `GET` | `/api/reviews/minhas` | Lista avaliações feitas pelo usuário logado. |
+| `POST` | `/api/reviews` | Cria uma nova avaliação. |
 | `DELETE` | `/api/reviews/:id_review` | Remove uma avaliação específica. |
 
 ---
 
-### ❤️ Favoritos (`/api/favorites`)
+### ❤️ 4. Sistema de Favoritos (`/api/favorites`)
 
-Nova funcionalidade que permite aos usuários gerenciar uma lista pessoal de livros favoritos.
+Permite que cada usuário mantenha uma lista pessoal de livros preferidos.
 
-#### 🌟 Rotas de Favoritos
+#### 📌 Rotas
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
-| `POST` | `/api/favorites/:book_id` | Adiciona um livro aos favoritos do usuário logado. |
+| `POST` | `/api/favorites/:book_id` | Adiciona um livro aos favoritos. |
 | `DELETE` | `/api/favorites/:book_id` | Remove o livro dos favoritos. |
-| `GET` | `/api/favorites` | Lista todos os favoritos do usuário autenticado. |
-| `GET` | `/api/favorites/check/:book_id` | Verifica se um livro específico está favoritado pelo usuário. |
+| `GET` | `/api/favorites` | Lista todos os favoritos do usuário logado. |
+| `GET` | `/api/favorites/check/:book_id` | Verifica se um livro está favoritado pelo usuário. |
 
-#### ✔ Fluxo no Frontend
+#### ✔ Fluxo Frontend
 
-* Exibição de ícone de coração (vazio/preenchido) por livro.
-* Página dedicada "Meus Favoritos" exibindo a lista pessoal do usuário.
+* Botão de favoritar/desfavoritar com ícone de coração dinâmico.
+* Página dedicada "Meus Favoritos".
+* Atualização em tempo real das ações de favoritar.
 
 ---
 
-## 🗃️ Estrutura do Banco (SQLite)
+### 🌗 5. Tema Claro/Escuro (Frontend)
 
-O banco de dados possui quatro tabelas principais interligadas com **`ON DELETE CASCADE`** para garantir a integridade dos dados:
+Funcionalidade de usabilidade implementada no frontend (React).
 
-* `users`
-* `livros`
-* `reviews`
-* `favorites`
+* **Botão** para alternar entre os temas claro e escuro.
+* A preferência do tema é salva no **localStorage** do navegador.
+* O estilo é aplicado globalmente via **Context API**.
+
+---
+
+## 🗃️ Estrutura do Banco de Dados
+
+O banco de dados possui quatro tabelas principais interligadas (`users`, `livros`, `reviews`, `favorites`), todas configuradas com **`ON DELETE CASCADE`** para garantir a integridade dos dados.
 
 ### 🧹 Comportamento Cascade Automático
 
@@ -104,23 +120,122 @@ O relacionamento `ON DELETE CASCADE` garante a limpeza automática de dados órf
 * Ao **excluir um livro** $\rightarrow$ suas avaliações + favoritos são removidos.
 * Ao **excluir um usuário** $\rightarrow$ suas avaliações + favoritos são removidos.
 
-### 🗂️ Tabela `favorites` (Exemplo)
+---
 
-```sql
-favorites (
-  user_id INTEGER,
-  book_id INTEGER,
-  PRIMARY KEY (user_id, book_id),
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (book_id) REFERENCES livros(id) ON DELETE CASCADE
-)
+#Estrutura Geral do Projeto
 
-/
-├── /src
-│   ├── /controllers      <- Lógica de negócio e manipulação de requisições.
-│   ├── /repositories     <- Camada de acesso ao banco de dados.
-│   ├── /routes           <- Definição de todas as rotas da API.
-│   ├── /middlewares      <- Funções como autenticação e Multer.
-│   └── /data/livraria.db <- Arquivo do banco de dados.
-├── /uploads              <- Onde as imagens de capa são armazenadas.
-└── server.js             <- Ponto de entrada da aplicação.
+A aplicação está organizada em dois diretórios principais:
+
+* `├── backend/` # Contém a API RESTful Node.js/Express.js
+* `└── frontend/` # Contém a aplicação de cliente (React)
+
+---
+
+## 💻 Estrutura de Pastas (`backend`)
+
+* backend/
+├── server.js            # Inicialização do servidor
+├── app.js               # Configurações principais
+├── package.json
+└── src/
+    ├── config           # Configurações gerais
+    ├── controllers      # Lógica das rotas
+    ├── data             # Arquivos do banco
+    ├── database         # Conexão SQLite
+    ├── middleware       # Auth, uploads, validações, etc.
+    ├── models           # Modelos de dados
+    ├── repositories     # Consultas diretas ao banco
+    ├── routes           # Arquitetura de rotas
+    └── uploads          # Diretório para capas enviadas (Multer)
+
+
+
+### Estrutura do Frontend (`frontend`)
+O diretório `frontend/` segue a estrutura padrão de uma aplicação React:
+
+frontend/
+├── public/
+├── index.html
+├── package.json
+├── vite.config.js
+└── src/
+    ├── assets
+    ├── components        # Componentes reutilizáveis
+    ├── contexts          # Context API (ex: Tema)
+    ├── pages             # Páginas principais da aplicação
+    ├── services          # Comunicação com o backend (API)
+    ├── App.jsx
+    └── main.jsx
+
+
+
+---
+
+## ▶️ Como Rodar a Aplicação
+
+Para iniciar o projeto, você deve rodar o backend e o frontend separadamente:
+
+### 1. Rodar o Backend (API)
+
+Entre no diretório `backend` e execute os comandos:
+
+```bash
+cd backend
+npm install
+npm run dev
+Servidor da API padrão: http://localhost:3333
+
+### 2. Rodar o Frontend (Cliente)
+
+Entre no diretório frontend e execute os comandos:
+
+Aqui está o texto formatado em Markdown para que você possa colar no seu arquivo de documentação (como o README.md no Visual Studio Code), mantendo a hierarquia e clareza.
+
+Markdown
+
+# 📁 Estrutura do Projeto e Execução
+
+Este projeto é composto por um **Backend (API)** em Node.js/Express e um **Frontend (Cliente)** em React.
+
+---
+
+## 💻 Estrutura de Pastas (`backend`)
+
+O diretório `backend/` está organizado em camadas (como MVC/Repository Pattern):
+
+backend/ ├── server.js # Inicialização do servidor ├── app.js # Configurações principais (middlewares, CORS, etc.) ├── package.json └── src/ ├── config # Configurações gerais da aplicação ├── controllers # Lógica das rotas (Business Logic) ├── data # Arquivos de dados (Ex: Seeds para o banco) ├── database # Configuração e conexão SQLite ├── middleware # Funções intermediárias (Auth, uploads, validações, etc.) ├── models # Modelos de dados (Esquemas de tabelas) ├── repositories # Consultas diretas ao banco de dados ├── routes # Arquitetura e definição das rotas da API └── uploads # Diretório para capas enviadas (Gerenciado pelo Multer)
+
+
+---
+
+## 🎨 Estrutura do Frontend (`frontend`)
+
+O diretório `frontend/` segue a estrutura padrão de uma aplicação React com foco em componentização:
+
+frontend/ ├── public/ ├── index.html ├── package.json ├── vite.config.js └── src/ ├── assets # Arquivos estáticos (imagens, ícones, etc.) ├── components # Componentes React reutilizáveis ├── contexts # Gerenciamento de estado global (Context API - Ex: Tema) ├── pages # Componentes que representam páginas principais da aplicação ├── services # Funções de comunicação com o backend (API) ├── App.jsx # Componente principal └── main.jsx # Ponto de entrada do React
+
+
+---
+
+## ▶️ Como Rodar a Aplicação
+
+Para iniciar o projeto, você deve rodar o backend e o frontend separadamente:
+
+### 1. Rodar o Backend (API)
+
+Entre no diretório `backend` e execute os comandos:
+
+```bash
+cd backend
+npm install
+npm run dev
+🌐 Servidor da API padrão: http://localhost:3333
+
+### 2. Rodar o Frontend (Cliente)
+
+Entre no diretório frontend e execute os comandos:
+
+cd frontend
+npm install
+npm run dev
+Aplicação rodando em: http://localhost:3000/
