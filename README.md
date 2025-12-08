@@ -154,7 +154,7 @@ A aplicação está organizada em dois diretórios principais:
 O diretório `frontend/` segue a estrutura padrão de uma aplicação React:
 
 frontend/
-├── public/
+```├── public/
 ├── index.html
 ├── package.json
 ├── vite.config.js
@@ -166,8 +166,7 @@ frontend/
     ├── services          # Comunicação com o backend (API)
     ├── App.jsx
     └── main.jsx
-
-
+```
 
 ---
 ## ▶️ Como Rodar a Aplicação
@@ -184,8 +183,8 @@ Entre no diretório `backend` e execute os seguintes comandos no seu terminal:
 cd backend
 npm install
 npm run dev
-O servidor estará rodando em http://localhost:3333
 ```
+O servidor estará rodando em http://localhost:3333
 ---
 
 ### 2. Rodar o Frontend (Cliente)
@@ -195,5 +194,5 @@ Entre no diretório `frontend` e execute os seguintes comandos no seu terminal:
 ```cd frontend
 npm install
 npm run dev
-🖥️ Aplicação rodando em: http://localhost:3000/
 ``` 
+🖥️ Aplicação rodando em: http://localhost:3000/
