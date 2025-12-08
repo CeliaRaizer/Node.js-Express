@@ -185,12 +185,15 @@ cd backend
 npm install
 npm run dev
 O servidor estará rodando em http://localhost:3333
+```
+---
 
 ### 2. Rodar o Frontend (Cliente)
 
 Entre no diretório `frontend` e execute os seguintes comandos no seu terminal:
 
-cd frontend
+```cd frontend
 npm install
 npm run dev
 🖥️ Aplicação rodando em: http://localhost:3000/
+``` 
