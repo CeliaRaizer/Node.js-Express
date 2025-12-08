@@ -170,72 +170,27 @@ frontend/
 
 
 ---
-
 ## ▶️ Como Rodar a Aplicação
 
-Para iniciar o projeto, você deve rodar o backend e o frontend separadamente:
+Para iniciar o projeto, você deve rodar o **backend** (API) e o **frontend** (Cliente) separadamente, seguindo os passos abaixo:
 
-### 1. Rodar o Backend (API)
+---
 
-Entre no diretório `backend` e execute os comandos:
+### 1. ⚙️ Rodar o Backend (API)
+
+Entre no diretório `backend` e execute os seguintes comandos no seu terminal:
 
 ```bash
 cd backend
 npm install
 npm run dev
-Servidor da API padrão: http://localhost:3333
+O servidor estará rodando em http://localhost:3333
 
 ### 2. Rodar o Frontend (Cliente)
 
-Entre no diretório frontend e execute os comandos:
-
-Aqui está o texto formatado em Markdown para que você possa colar no seu arquivo de documentação (como o README.md no Visual Studio Code), mantendo a hierarquia e clareza.
-
-Markdown
-
-# 📁 Estrutura do Projeto e Execução
-
-Este projeto é composto por um **Backend (API)** em Node.js/Express e um **Frontend (Cliente)** em React.
-
----
-
-## 💻 Estrutura de Pastas (`backend`)
-
-O diretório `backend/` está organizado em camadas (como MVC/Repository Pattern):
-
-backend/ ├── server.js # Inicialização do servidor ├── app.js # Configurações principais (middlewares, CORS, etc.) ├── package.json └── src/ ├── config # Configurações gerais da aplicação ├── controllers # Lógica das rotas (Business Logic) ├── data # Arquivos de dados (Ex: Seeds para o banco) ├── database # Configuração e conexão SQLite ├── middleware # Funções intermediárias (Auth, uploads, validações, etc.) ├── models # Modelos de dados (Esquemas de tabelas) ├── repositories # Consultas diretas ao banco de dados ├── routes # Arquitetura e definição das rotas da API └── uploads # Diretório para capas enviadas (Gerenciado pelo Multer)
-
-
----
-
-## 🎨 Estrutura do Frontend (`frontend`)
-
-O diretório `frontend/` segue a estrutura padrão de uma aplicação React com foco em componentização:
-
-frontend/ ├── public/ ├── index.html ├── package.json ├── vite.config.js └── src/ ├── assets # Arquivos estáticos (imagens, ícones, etc.) ├── components # Componentes React reutilizáveis ├── contexts # Gerenciamento de estado global (Context API - Ex: Tema) ├── pages # Componentes que representam páginas principais da aplicação ├── services # Funções de comunicação com o backend (API) ├── App.jsx # Componente principal └── main.jsx # Ponto de entrada do React
-
-
----
-
-## ▶️ Como Rodar a Aplicação
-
-Para iniciar o projeto, você deve rodar o backend e o frontend separadamente:
-
-### 1. Rodar o Backend (API)
-
-Entre no diretório `backend` e execute os comandos:
-
-```bash
-cd backend
-npm install
-npm run dev
-🌐 Servidor da API padrão: http://localhost:3333
-
-### 2. Rodar o Frontend (Cliente)
-
-Entre no diretório frontend e execute os comandos:
+Entre no diretório `frontend` e execute os seguintes comandos no seu terminal:
 
 cd frontend
 npm install
 npm run dev
-Aplicação rodando em: http://localhost:3000/
+🖥️ Aplicação rodando em: http://localhost:3000/
